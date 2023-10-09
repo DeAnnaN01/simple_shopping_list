@@ -12,12 +12,11 @@ import {
 
 
 
-const ShoppingList = [];
 
 const App = () => {
     const [item, setItem] = useState("");
     const [notes, setNotes] = useState("");
-    const [shoppingList, setShoppingList] = useState([ShoppingList]);
+    const [shoppingList, setShoppingList] = useState([]);
 
     const handleAddItem = () => {
         const newItem = { item, notes };
