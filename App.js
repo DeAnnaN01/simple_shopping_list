@@ -8,19 +8,50 @@ export default function App() {
     const [item, setItem] = useState('');
     const [notes, setNotes] = useState('');
     const [shoppingList, setShoppingList] = useState([]);
-    const [selected, setSelected] = useState([]);
+
+
 
     const handleAdd = () => {
-        setShoppingList([...shoppingList, { item, notes }]);
+        setShoppingList((prevShoppingList) => {
+            return [
+                ...prevShoppingList, 
+                { item: item, notes: notes, checked: checked},
+            ]
+        });
         setItem('');
         setNotes('');
+        setChecked(false);
     };
 
     const handleDelete = () => {
         const newList = [...shoppingList];
-        newList.filter((item) => item !== checked);
+        newList.filter( (item) => item !== checked);
         setShoppingList(newList);
     };
+
+
+    const renderItem = () => shoppingList.map((item, index) => (
+        <View style={styles.list} key={index} >
+            <Checkbox
+                value={checked}
+                onValueChange={(newValue) => {
+                    setChecked(newValue);
+                }}
+                style={styles.checkbox}
+            />
+            <Text style={styles.item} >{item.item}</Text>
+            <Text style={styles.notes} >{item.notes}</Text>
+        </View>
+    ));
+
+
+    // const handleDelete = () => {
+    //     setShoppingList((prevShoppingList) => {
+    //         return (
+    //             prevShoppingList.filter((checked) => checked === 'false')
+    //         );
+    //     });
+    // };
 
 
 
@@ -48,29 +79,14 @@ export default function App() {
                 </View>
                 <View>
                     <Text style={styles.title}>Shopping List</Text>
-                    {shoppingList.map((item, index) => (
                         <FlatList
                             key={(index) => index.toString()}
                             data={shoppingList}
-                            renderItem={({ item }) => (
-                                <View style={styles.list}>
-                                    <Checkbox
-                                        value={checked}
-                                        onValueChange={() => {
-                                            setChecked(!checked);
-                                            setSelected(selected);
-                                        }}
-                                        style={styles.checkbox}
-                                    />
-                                    <Text>{item.item}</Text>
-                                    <Text>{item.notes}</Text>
-                                </View>
-                            )}
+                            renderItem={renderItem}
                         />
-                    ))}
                     <View style={styles.delete} >
                         <Button
-                            title="Delete Checked Item"
+                            title="Delete All Items"
                             onPress={() => handleDelete()}
                             color='red'
                         />
@@ -119,4 +135,16 @@ const styles = StyleSheet.create({
         marginTop: 20,
         alignContent: 'bottom'
     },
+    item: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginLeft: 10,
+        color: 'blue',
+    },
+    notes: {
+        fontSize: 16,
+        marginLeft: 20,
+        fontStyle: 'italic',
+    },
+    
 });
