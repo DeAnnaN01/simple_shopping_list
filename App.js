@@ -96,6 +96,20 @@ export default function App() {
                 />
                 <Button title="Add" onPress={handleAdd} />
             </View>
+            <View style={{ flexDirection: "row", marginBottom: 10 }}>
+                <Text
+                    style={{
+                        fontSize: 28,
+                        fontWeight: 'bold',
+                        textAlign: 'center',
+                        color: 'purple',
+                        margin: 10,
+                    }}
+                >
+                    Shopping List:
+                </Text>
+            </View>
+
             <FlatList
                 data={shoppingList}
                 renderItem={renderItem}
