@@ -34,10 +34,6 @@ export default function App() {
         setShoppingList(newList);
     };
 
-    const handleEdit = (id) => {
-        // Handle edit functionality here
-        console.log(`Edit item with id ${id}`);
-    };
 
     const renderItem = ({ item }) => (
         <TouchableOpacity
@@ -49,17 +45,38 @@ export default function App() {
             }}
             onPress={() => handleCheck(item.id)}
         >
-            <Text
+            <View 
                 style={{
-                    textDecorationLine: item.checked ? "line-through" : "none",
+                    flexDirection: 'column',
+                    marginRight: 25,
                 }}
             >
-                {item.item}
-            </Text>
+                <Text
+                    style={{
+                        textDecorationLine: item.checked ? "line-through" : "none",
+                        color: item.checked ? "gray" : "blue",
+                        fontSize: 18,
+                        fontStyle: 'italic',
+                        fontWeight: 'bold',
+                        marginTop: 1,
+                        marginLeft: 5,
+                    }}
+                >
+                    {item.item}
+                </Text>
+                <Text
+                    style={{
+                        textDecorationLine: item.checked ? "line-through" : "none",
+                        color: item.checked ? "gray" : "purple",
+                        fontSize: 14,
+                        marginTop: 1,
+                        marginLeft: 15,
+                    }}
+                >
+                    {item.notes}
+                </Text>
+            </View>
             <View style={{ flexDirection: "row" }}>
-                <TouchableOpacity onPress={() => handleEdit(item.id)}>
-                    <Text style={{ color: "blue", marginRight: 10 }}>Edit</Text>
-                </TouchableOpacity>
                 <TouchableOpacity onPress={() => handleDelete(item.id)}>
                     <Text style={{ color: "red" }}>Delete</Text>
                 </TouchableOpacity>
