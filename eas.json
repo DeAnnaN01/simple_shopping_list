@@ -13,6 +13,11 @@
         "preview3": {
             "developmentClient": true
         },
+        "iospreview": {
+            "ios": {
+                "simulator": true
+            }
+        },
         "production": {}
     }
 }
