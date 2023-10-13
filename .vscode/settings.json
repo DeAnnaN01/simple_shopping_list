@@ -1,0 +1,8 @@
+{
+    "java.compile.nullAnalysis.mode": "disabled",
+    "cSpell.words": [
+        "dbname",
+        "dboper",
+        "rneui"
+    ]
+}

@@ -9,9 +9,16 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo/webpack-config": "^19.0.0",
+    "@react-native-picker/picker": "2.4.10",
+    "@rneui/themed": "^4.0.0-rc.8",
+    "env": "^0.0.2",
     "expo": "~49.0.13",
     "expo-splash-screen": "~0.20.5",
     "expo-status-bar": "~1.6.0",
+    "fs": "^0.0.1-security",
+    "mongodb": "^6.1.0",
+    "node": "^20.7.0",
     "react": "18.2.0",
     "react-native": "0.72.5",
     "expo-checkbox": "~2.4.0"
