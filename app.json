@@ -1,11 +1,17 @@
 {
   "expo": {
     "name": "simple_shopping_list",
-    "slug": "simple_shopping_list",
+    "slug": "simple-shopping-list",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "6caad1c8-2e00-4cbe-85e3-0eb0b47fca4c"
+      }
+    },
+    "owner": "deannan01"
   },
   "name": "simple_shopping_list"
 }
