@@ -6,8 +6,10 @@ import {
     FlatList,
     TouchableOpacity,
     Text,
-    AsyncStorage,
 } from "react-native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
 
 export default function App() {
     const [shoppingList, setShoppingList] = useState([]);
