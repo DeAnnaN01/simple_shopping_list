@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     View,
     TextInput,
@@ -6,12 +6,45 @@ import {
     FlatList,
     TouchableOpacity,
     Text,
+    AsyncStorage,
 } from "react-native";
 
 export default function App() {
     const [shoppingList, setShoppingList] = useState([]);
     const [item, setItem] = useState("");
     const [notes, setNotes] = useState("");
+
+    useEffect(() => {
+        // Load shopping list from storage when the app starts
+        loadShoppingList();
+    }, []);
+
+    useEffect(() => {
+        // Save shopping list to storage whenever it changes
+        saveShoppingList();
+    }, [shoppingList]);
+
+    const loadShoppingList = async () => {
+        try {
+            const storedList = await AsyncStorage.getItem("shoppingList");
+            if (storedList) {
+                setShoppingList(JSON.parse(storedList));
+            }
+        } catch (error) {
+            console.log("Error loading shopping list:", error);
+        }
+    };
+
+    const saveShoppingList = async () => {
+        try {
+            await AsyncStorage.setItem(
+                "shoppingList",
+                JSON.stringify(shoppingList)
+            );
+        } catch (error) {
+            console.log("Error saving shopping list:", error);
+        }
+    };
 
     const handleAdd = () => {
         setShoppingList([
@@ -34,7 +67,6 @@ export default function App() {
         setShoppingList(newList);
     };
 
-
     const renderItem = ({ item }) => (
         <TouchableOpacity
             style={{
@@ -45,19 +77,21 @@ export default function App() {
             }}
             onPress={() => handleCheck(item.id)}
         >
-            <View 
+            <View
                 style={{
-                    flexDirection: 'column',
+                    flexDirection: "column",
                     marginRight: 25,
                 }}
             >
                 <Text
                     style={{
-                        textDecorationLine: item.checked ? "line-through" : "none",
+                        textDecorationLine: item.checked
+                            ? "line-through"
+                            : "none",
                         color: item.checked ? "gray" : "blue",
                         fontSize: 18,
-                        fontStyle: 'italic',
-                        fontWeight: 'bold',
+                        fontStyle: "italic",
+                        fontWeight: "bold",
                         marginTop: 1,
                         marginLeft: 5,
                     }}
@@ -66,7 +100,9 @@ export default function App() {
                 </Text>
                 <Text
                     style={{
-                        textDecorationLine: item.checked ? "line-through" : "none",
+                        textDecorationLine: item.checked
+                            ? "line-through"
+                            : "none",
                         color: item.checked ? "gray" : "purple",
                         fontSize: 14,
                         marginTop: 1,
@@ -85,7 +121,7 @@ export default function App() {
     );
 
     return (
-        <View style={{ flex: 1, padding: 20, paddingTop: 55}}>
+        <View style={{ flex: 1, padding: 20, paddingTop: 55 }}>
             <View style={{ flexDirection: "row", marginBottom: 10 }}>
                 <TextInput
                     style={{
@@ -117,16 +153,15 @@ export default function App() {
                 <Text
                     style={{
                         fontSize: 28,
-                        fontWeight: 'bold',
-                        textAlign: 'center',
-                        color: 'purple',
+                        fontWeight: "bold",
+                        textAlign: "center",
+                        color: "purple",
                         margin: 10,
                     }}
                 >
                     Shopping List:
                 </Text>
             </View>
-
             <FlatList
                 data={shoppingList}
                 renderItem={renderItem}
@@ -134,4 +169,4 @@ export default function App() {
             />
         </View>
     );
-}
+};
